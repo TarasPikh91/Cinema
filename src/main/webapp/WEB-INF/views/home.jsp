@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <title>Movies Online</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../css/home.css">
 </head>
 <body>
-   <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+   <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-dark">
      <a class="navbar-brand" href="/">Online Movie</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       <ul class="navbar-nav mr-auto">
+       <ul class=" mr-auto nav nav-pills">
          <li class="nav-item">
            <a class="nav-link" href="/country">Country</a>
          </li>
@@ -26,9 +27,13 @@
            <a class="nav-link" href="/releaseYear">Release Year</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="/user">User</a>
+           <a class="nav-link" href="/serial">Serial</a>
          </li>
-         <li class="nav-item"><a class="nav-link" href="/serial">Serial</a></li>
+         <li class="nav-item">
+           <button class="btn btn-secondary btn-sm" type="button">
+             <a class="nav-link" href="/user">Log In</a>
+           </button>
+         </li>
        </ul>
        <form class="form-inline my-2 my-lg-0">
          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

@@ -1,0 +1,7 @@
+.nav-pills > li> a{
+    color: white;
+}
+
+.nav-pills>li>a:hover{
+    color: green;
+}

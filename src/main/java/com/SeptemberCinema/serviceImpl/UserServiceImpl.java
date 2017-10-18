@@ -3,7 +3,9 @@ package com.SeptemberCinema.serviceImpl;
 import com.SeptemberCinema.dao.UserDao;
 import com.SeptemberCinema.entity.User;
 import com.SeptemberCinema.service.UserService;
+import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +14,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
+
+    @Autowired
+    @Qualifier("userValidation")
+    private Validator validator;
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws Exception {
+        validator.validate(user);
         userDao.save(user);
     }
 

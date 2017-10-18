@@ -5,6 +5,7 @@ import com.SeptemberCinema.entity.Movie;
 import com.SeptemberCinema.entity.User;
 import com.SeptemberCinema.service.MovieService;
 import com.SeptemberCinema.service.UserService;
+import com.SeptemberCinema.validation.userValidator.UserValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +35,27 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String user(@ModelAttribute User user){
-        userService.save(user);
+    public String user(@ModelAttribute User user, Model model){
+        try {
+            userService.save(user);
+        } catch (Exception e) {
+            if (e.getMessage().equals(UserValidatorMessages.EMPTY_USERFIRSTNAME_FIELD)){
+                model.addAttribute("firstNameException", e.getMessage());
+            }else if (e.getMessage().equals(UserValidatorMessages.EMPTY_USERlASTNAME_FIELD)||
+                    e.getMessage().equals(UserValidatorMessages.USERLASTNAME_ALREADY_EXIST)){
+                model.addAttribute("lastNameException", e.getMessage());
+            }else if(e.getMessage().equals(UserValidatorMessages.USER_AGE_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(UserValidatorMessages.USER_AGE_FIELD_ONLYDIGITS)){
+                model.addAttribute("ageException", e.getMessage());
+            }else if(e.getMessage().equals(UserValidatorMessages.USER_MAIL_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(UserValidatorMessages.USER_MAIL_FIELD_ALREADY_EXISTS)){
+                model.addAttribute("emailException", e.getMessage());
+            }else if(e.getMessage().equals(UserValidatorMessages.USER_PASSWORD_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(UserValidatorMessages.USER_PASSWORD_TO_SMALL)){
+                model.addAttribute("passwordException", e.getMessage());
+            }
+            return"user";
+        }
         return "redirect:/user";
     }
 
