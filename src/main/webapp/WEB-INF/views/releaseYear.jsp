@@ -14,6 +14,7 @@
 </head>
 <body>
 <form:form modelAttribute="releaseYear" method="post">
+    <span style="text-align: center; color: red">${ReleaseYearException}</span>
     <form:input path="releaseYear"/> Release Year<br>
     <button>Save Year</button>
 </form:form>

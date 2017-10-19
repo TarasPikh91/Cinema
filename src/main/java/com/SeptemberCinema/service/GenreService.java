@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GenreService {
 
-    void save(Genre genre);
+    void save(Genre genre) throws Exception;
 
     List<Genre> findAll();
 

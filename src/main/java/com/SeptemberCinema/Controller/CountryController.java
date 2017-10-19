@@ -2,6 +2,7 @@ package com.SeptemberCinema.Controller;
 
 import com.SeptemberCinema.entity.Country;
 import com.SeptemberCinema.service.CountryService;
+import com.SeptemberCinema.validation.countryValidator.CountryValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,17 @@ public class CountryController {
 
 
     @PostMapping("/country")
-    public String save(@ModelAttribute Country country){
-        countryService.save(country);
+    public String save(@ModelAttribute Country country, Model model){
+        try {
+            countryService.save(country);
+        } catch (Exception e) {
+            if (e.getMessage().equals(CountryValidatorMessages.EMPTY_COUNTRYNAME_FIELD)||
+                    e.getMessage().equals(CountryValidatorMessages.COUNTRY_ALREADY_EXISTS)){
+                model.addAttribute("countryNameException", e.getMessage());
+            }
+            model.addAttribute("countries", countryService.findAll());
+            return "country";
+        }
         return "redirect:/country";
     }
 

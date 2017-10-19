@@ -14,6 +14,7 @@
 </head>
 <body>
 <form:form modelAttribute="genre" method="post">
+    <span style="text-align: center; color: red">${GenreNameException}</span>
     <form:input path="genreName"/>Genre Name<br>
     <button>Save Genre</button>
 </form:form>

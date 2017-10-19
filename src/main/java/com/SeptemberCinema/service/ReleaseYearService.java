@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReleaseYearService {
 
-    void save(ReleaseYear releaseYear);
+    void save(ReleaseYear releaseYear) throws Exception;
 
     List<ReleaseYear> findAll();
 

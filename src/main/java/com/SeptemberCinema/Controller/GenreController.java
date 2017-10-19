@@ -4,6 +4,8 @@ import com.SeptemberCinema.editor.MovieEditor;
 import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Movie;
 import com.SeptemberCinema.service.GenreService;
+import com.SeptemberCinema.validation.genreValidator.GenreValidationMessages;
+import com.SeptemberCinema.validation.userValidator.UserValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +32,17 @@ public class GenreController {
     }
 
     @PostMapping("/genre")
-    public String genre(@ModelAttribute Genre genre){
-        genreService.save(genre);
+    public String genre(@ModelAttribute Genre genre, Model model){
+        try {
+            genreService.save(genre);
+        } catch (Exception e) {
+            if(e.getMessage().equals(GenreValidationMessages.EMPTY_GENRENAME_FIELD)||
+                    e.getMessage().equals(GenreValidationMessages.GEMRENAME_FIELD_ALREADY_EXISTS)){
+                model.addAttribute("GenreNameException", e.getMessage());
+            }
+            model.addAttribute("genres", genreService.findAll());
+            return "genre";
+        }
         return "redirect:/genre";
     }
 

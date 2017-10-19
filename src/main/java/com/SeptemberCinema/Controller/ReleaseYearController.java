@@ -2,6 +2,7 @@ package com.SeptemberCinema.Controller;
 
 import com.SeptemberCinema.entity.ReleaseYear;
 import com.SeptemberCinema.service.ReleaseYearService;
+import com.SeptemberCinema.validation.releaseYearValidator.ReleaseYearMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,17 @@ public class ReleaseYearController {
     }
 
     @PostMapping("/releaseYear")
-    public String releaseYear(@ModelAttribute ReleaseYear releaseYear){
-        releaseYearService.save(releaseYear);
+    public String releaseYear(@ModelAttribute ReleaseYear releaseYear, Model model){
+        try {
+            releaseYearService.save(releaseYear);
+        } catch (Exception e) {
+            if (e.getMessage().equals(ReleaseYearMessages.EMPTY_RELEASEYEAR_FIELD)||
+                    e.getMessage().equals(ReleaseYearMessages.RELEASEYEAR_ALREADY_EXISTS)){
+                model.addAttribute("ReleaseYearException", e.getMessage());
+            }
+            model.addAttribute("releaseYears", releaseYearService.findAll());
+            return "releaseYear";
+        }
         return "redirect:/releaseYear";
     }
 

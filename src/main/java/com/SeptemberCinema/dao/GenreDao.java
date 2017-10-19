@@ -18,4 +18,6 @@ public interface GenreDao extends JpaRepository<Genre, Integer> {
     @Query("select g from Genre g left join fetch g.serials where g.id=:id")
     Genre genreWithSerials(@Param("id")int id);
 
+    Genre findByGenreName(String genreName);
+
 }

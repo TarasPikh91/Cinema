@@ -3,8 +3,11 @@ package com.SeptemberCinema.serviceImpl;
 import com.SeptemberCinema.dao.GenreDao;
 import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.service.GenreService;
+import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -14,9 +17,14 @@ public class GenreServiceImpl implements GenreService {
     @Autowired
     private GenreDao genreDao;
 
+    @Autowired
+    @Qualifier("genreValidation")
+    private Validator validator;
+
 
     @Override
-    public void save(Genre genre) {
+    public void save(Genre genre) throws Exception {
+        validator.validate(genre);
         genreDao.save(genre);
     }
 

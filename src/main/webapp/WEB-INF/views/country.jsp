@@ -15,6 +15,7 @@
 <body>
 <div class="container">
     <form:form modelAttribute="country" method="post">
+        <span style="text-align: center; color: red">${countryNameException}</span>
         <form:input path="countryName"/>
         <button>Save</button>
     </form:form>

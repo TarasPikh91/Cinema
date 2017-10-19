@@ -12,4 +12,6 @@ public interface CountryDao extends JpaRepository<Country, Integer> {
 
     @Query("select c from Country c left join fetch c.serials where c.id=:id")
     Country countryWithSerial(@Param("id")int id);
+
+    Country findByCountryName(String name);
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CountryService {
 
-    void save(Country country);
+    void save(Country country) throws Exception;
 
     List<Country> findAll();
 
