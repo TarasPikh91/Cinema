@@ -15,7 +15,7 @@ public class Serial {
     private int id;
 
     private String title;
-    private double duration;
+    private String duration;
     private String description;
 
     @ManyToOne
@@ -40,7 +40,7 @@ public class Serial {
 
     }
 
-    public Serial(String title, double duration, String description) {
+    public Serial(String title, String duration, String description) {
         this.title = title;
         this.duration = duration;
         this.description = description;
@@ -62,11 +62,11 @@ public class Serial {
         this.title = title;
     }
 
-    public double getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

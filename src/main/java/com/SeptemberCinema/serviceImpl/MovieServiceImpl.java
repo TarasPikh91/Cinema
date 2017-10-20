@@ -9,7 +9,9 @@ import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Movie;
 import com.SeptemberCinema.entity.ReleaseYear;
 import com.SeptemberCinema.service.MovieService;
+import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,10 +29,15 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private CountryDao countryDao;
 
+    @Autowired
+    @Qualifier("movieValidation")
+    private Validator validator;
+
 
     @Override
-    public void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds) {
+    public void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds) throws Exception {
 
+        validator.validate(movie);
         movieDao.saveAndFlush(movie);
         for(Integer id : genreIds){
             Genre genre = genreDao.genreWithMovies(id);

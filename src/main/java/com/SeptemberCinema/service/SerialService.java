@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SerialService {
 
-    void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds);
+    void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds) throws Exception;
 
     List<Serial> findAll();
 

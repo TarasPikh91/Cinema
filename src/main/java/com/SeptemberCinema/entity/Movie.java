@@ -12,7 +12,7 @@ public class Movie {
     private int id;
 
     private String title;
-    private double duration;
+    private String duration;
     private String description;
 
     @ManyToOne
@@ -36,7 +36,7 @@ public class Movie {
 
     }
 
-    public Movie(String title, double duration, String description) {
+    public Movie(String title, String duration, String description) {
         this.title = title;
         this.duration = duration;
         this.description = description;
@@ -58,11 +58,11 @@ public class Movie {
         this.title = title;
     }
 
-    public double getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

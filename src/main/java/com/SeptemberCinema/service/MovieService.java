@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MovieService {
 
-    void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds);
+    void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds) throws Exception;
 
     List<Movie> findAll();
 

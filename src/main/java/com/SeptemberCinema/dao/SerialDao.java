@@ -12,4 +12,6 @@ public interface SerialDao extends JpaRepository<Serial, Integer>{
 
     @Query("select s from Serial s left join fetch s.genres where s.id=:id")
     Serial serialWithGenre(@Param("id")int id);
+
+    Serial findByTitle(String serialTitle);
 }

@@ -7,6 +7,7 @@ import com.SeptemberCinema.service.CountryService;
 import com.SeptemberCinema.service.GenreService;
 import com.SeptemberCinema.service.MovieService;
 import com.SeptemberCinema.service.ReleaseYearService;
+import com.SeptemberCinema.validation.movieValidator.MovieValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +48,26 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
-    public String movie(@ModelAttribute Movie movie, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds){
-        movieService.save(movie, genreIds, countryIds);
+    public String movie(@ModelAttribute Movie movie, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
+        try {
+            movieService.save(movie, genreIds, countryIds);
+        } catch (Exception e) {
+            if (e.getMessage().equals(MovieValidatorMessages.EMPTY_TITLE_FIELD)||
+                    e.getMessage().equals(MovieValidatorMessages.THIS_MOVIE_ALREADY_EXISTS)){
+                model.addAttribute("titleException", e.getMessage());
+            }else if(e.getMessage().equals(MovieValidatorMessages.DURAITON_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(MovieValidatorMessages.DURATION_FIELD_ONLY_DIGITS)){
+                model.addAttribute("durationException", e.getMessage());
+            }else if (e.getMessage().equals(MovieValidatorMessages.DESCRIPTION_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(MovieValidatorMessages.DESCRIPTION_FILED_MIN_TWENTY_SYMBOLS)){
+                model.addAttribute("descriptionException", e.getMessage());
+            }
+            model.addAttribute("movies", movieService.findAll());
+            model.addAttribute("releaseYears", releaseYearService.findAll());
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("countries", countryService.findAll());
+            return "movie";
+        }
         return "redirect:/movie";
     }
 

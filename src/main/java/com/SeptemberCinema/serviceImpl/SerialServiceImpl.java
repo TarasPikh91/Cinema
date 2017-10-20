@@ -7,7 +7,9 @@ import com.SeptemberCinema.entity.Country;
 import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Serial;
 import com.SeptemberCinema.service.SerialService;
+import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +26,14 @@ public class SerialServiceImpl implements SerialService{
     @Autowired
     private CountryDao countryDao;
 
+    @Autowired
+    @Qualifier("serialValidation")
+    private Validator validator;
 
     @Override
-    public void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds) {
+    public void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds) throws Exception {
 
+        validator.validate(serial);
         serialDao.saveAndFlush(serial);
 
         for (Integer id : genreIds){

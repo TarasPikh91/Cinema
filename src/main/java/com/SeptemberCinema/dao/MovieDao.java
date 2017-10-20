@@ -12,4 +12,6 @@ public interface MovieDao extends JpaRepository<Movie, Integer> {
 
     @Query("select distinct m from Movie m left join fetch m.countries where m.id=:id")
     Movie movieWithCountries(@Param("id")int id);
+
+    Movie findByTitle(String titleName);
 }

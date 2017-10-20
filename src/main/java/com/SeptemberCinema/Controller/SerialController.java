@@ -8,6 +8,7 @@ import com.SeptemberCinema.service.CountryService;
 import com.SeptemberCinema.service.GenreService;
 import com.SeptemberCinema.service.ReleaseYearService;
 import com.SeptemberCinema.service.SerialService;
+import com.SeptemberCinema.validation.serialValidator.SerialValidationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,8 +49,26 @@ public class SerialController {
     }
 
     @PostMapping("/serial")
-    public String serial(@ModelAttribute Serial serial, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds){
-        serialService.save(serial, genreIds, countryIds);
+    public String serial(@ModelAttribute Serial serial, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
+        try {
+            serialService.save(serial, genreIds, countryIds);
+        } catch (Exception e) {
+            if (e.getMessage().equals(SerialValidationMessages.EMPTY_TITLE_FIELD)||
+                    e.getMessage().equals(SerialValidationMessages.THIS_SERIAL_ALREADY_EXISTS)){
+                model.addAttribute("titleException", e.getMessage());
+            }else if(e.getMessage().equals(SerialValidationMessages.DESCRIPTION_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(SerialValidationMessages.DESCRIPTION_FILED_MIN_TWENTY_SYMBOLS)){
+                model.addAttribute("descriptionException", e.getMessage());
+            }else if(e.getMessage().equals(SerialValidationMessages.DURAITON_FIELD_IS_EMPTY)||
+                    e.getMessage().equals(SerialValidationMessages.DURATION_FIELD_ONLY_DIGITS)){
+                model.addAttribute("durationException", e.getMessage());
+            }
+            model.addAttribute("serials", serialService.findAll());
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("countries", countryService.findAll());
+            model.addAttribute("releaseYears", releaseYearService.findAll());
+            return "serial";
+        }
         return "redirect:/serial";
     }
 

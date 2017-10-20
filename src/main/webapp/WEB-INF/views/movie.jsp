@@ -14,16 +14,19 @@
 </head>
 <body>
 <form:form modelAttribute="movie" method="post">
+    <span style="text-align: center; color: red">${titleException}</span><br>
     <form:input path="title"/>Title <br>
+    <span style="text-align: center; color: red">${durationException}</span><br>
     <form:input path="duration"/>Duration <br>
+    <span style="text-align: center; color: red">${descriptionException}</span>
     <form:input path="description"/>Description <br>
-    <form:select path="releaseYear" items="${releaseYears}" itemLabel="releaseYear" itemValue="id"/>
-    <select multiple name="genreIds" type="text">
+    <form:select path="releaseYear" items="${releaseYears}" itemLabel="releaseYear" itemValue="id" required="true"/><br>!
+    <select multiple name="genreIds" type="text" required>
         <c:forEach var="genre" items="${genres}">
             <option value="${genre.id}">${genre.genreName}</option>
         </c:forEach>
     </select><br>
-    <select multiple name="countryIds" type="text">
+    <select multiple name="countryIds" type="text" required>
         <c:forEach var="country" items="${countries}">
             <option value="${country.id}">${country.countryName}</option>
         </c:forEach>
