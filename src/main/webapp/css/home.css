@@ -5,3 +5,73 @@
 .nav-pills>li>a:hover{
     color: green;
 }
+
+
+.input-group-addon {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+
+.form-control, .input-group-addon {
+    border-radius: 0px;
+}
+label{
+    text-align: left !important;
+}
+
+#loginbox{
+    margin-top: 50px;
+}
+
+.forgotPassword{
+    float:right;
+    font-size: 80%;
+    position: relative;
+    top:-10px
+}
+
+.panel-body{
+    padding-top:30px;
+}
+
+#login-alert{
+    display:none;
+}
+
+.input-group{
+    margin-bottom: 25px;
+}
+
+.form-group{
+    margin-top: 10px;
+}
+
+.dontAcc{
+    border-top: 1px solid#888;
+    padding-top:15px;
+    font-size:85%;
+}
+
+#signupbox{
+    display:none;
+    margin-top:50px;
+}
+
+.signIn{
+    float:right;
+    font-size: 85%;
+    position: relative;
+    top:-10px;
+}
+
+#signupalert{
+    display: none;
+}
+
+.logInText{
+    border-top:
+            1px solid#888;
+    padding-top:15px;
+    font-size:85%;
+}
