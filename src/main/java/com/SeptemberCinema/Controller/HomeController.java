@@ -50,7 +50,7 @@ public class HomeController {
             }
             return"home";
         }
-        return "redirect:/home";
+        return "home";
     }
 
     @GetMapping("/login")
