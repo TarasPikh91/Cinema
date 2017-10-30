@@ -7,10 +7,22 @@
     <import resource="applicationContext.xml"/>
 
     <security:http use-expressions="true" >
-        <security:form-login login-page="/signUp" login-processing-url="/login"
+        <security:form-login login-page="/" login-processing-url="/login"
                              default-target-url="/"
                              authentication-failure-forward-url="/failureLogin" />
         <security:logout logout-url="/logout" logout-success-url="/"/>
+        <security:intercept-url pattern="/user" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/country" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/genre" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/movie" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/releaseYear" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/serial" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateCountry" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateGenre" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateMovie" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateReleaseYear" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateSerial" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateUser" access="hasRole('ROLE_ADMIN')"/>
     </security:http>
 
     <security:authentication-manager>

@@ -3,13 +3,18 @@ package com.SeptemberCinema.Controller;
 import com.SeptemberCinema.entity.User;
 import com.SeptemberCinema.service.MovieService;
 import com.SeptemberCinema.service.UserService;
+import com.SeptemberCinema.validation.Validator;
+import com.SeptemberCinema.validation.userLoginValidation.UserLogInException;
+import com.SeptemberCinema.validation.userLoginValidation.UserLogInValidationMessages;
 import com.SeptemberCinema.validation.userValidator.UserValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller 
 public class HomeController {
@@ -20,6 +25,10 @@ public class HomeController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    @Qualifier("userLoginValidation")
+    private Validator validator;
+
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("users", userService.findAll());
@@ -28,7 +37,7 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/")
+    @PostMapping("/SignUp")
     public String home(@ModelAttribute User user, Model model){
         try {
             userService.save(user);
@@ -63,6 +72,25 @@ public class HomeController {
 
     @PostMapping("/login")
     public String logInAfter(){
+
+        return "home";
+    }
+
+    @PostMapping("/failureLogin")
+    public String failureLogin(Model model, @RequestParam String username, @RequestParam String password){
+
+        try {
+            validator.validate(new User(username, password));
+        } catch (Exception e) {
+            if (e.getMessage().equals(UserLogInValidationMessages.USERNAME_FIELD_IS_EMPTY) ||
+                    e.getMessage().equals(UserLogInValidationMessages.WRONG_PASSWORD_OR_USERNAME)||
+                    e.getMessage().equals(UserLogInValidationMessages.EMPTY_PASSWORD_FIELD) ||
+                    e.getMessage().equals(UserLogInValidationMessages.WRONG_PASSWORD_OR_USERNAME)){
+                model.addAttribute("logInException", e.getMessage());
+            }
+            model.addAttribute("user", new User());
+            return "home";
+        }
         return "home";
     }
 
