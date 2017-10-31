@@ -9,12 +9,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Update Genre</title>
 </head>
 <body>
+<div class="container" style="margin-top: 50px">
 <form:form modelAttribute="currentGenre" method="post">
-    <input type="text" name="genreName" value="${currentGenre.genreName}">
-    <button>Update</button>
+    <fieldset class="form-group">
+        <label for="genreName">Genre Name</label>
+        <form:input path="genreName" type="text" class="form-control"/>
+    </fieldset>
+        <button type="submit" class="btn btn-default">Update</button>
 </form:form>
+</div>
 </body>
 </html>

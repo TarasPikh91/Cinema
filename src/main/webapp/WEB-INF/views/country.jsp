@@ -32,23 +32,23 @@
     </form:form>
 </div>
 
-<div class="container">
+<div class="container table-responsive">
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
             <th>Country</th>
-            <th>Delete</th>
             <th>Update</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
     <c:forEach var="country" items="${countries}">
         <tr>
-            <th>${country.id}</th>
-            <th>${country.countryName}</th>
-            <th><a href="/deleteCountry/${country.id}">Delete</a></th>
-            <th><a href="/updateCountry/${country.id}">Update</a></th>
+            <td>${country.id}</td>
+            <td>${country.countryName}</td>
+            <td><a href="/updateCountry/${country.id}">Update</a></td>
+            <td><a href="/deleteCountry/${country.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>

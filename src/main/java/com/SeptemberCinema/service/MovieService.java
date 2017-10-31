@@ -1,5 +1,6 @@
 package com.SeptemberCinema.service;
 
+import com.SeptemberCinema.entity.Country;
 import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Movie;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,8 @@ public interface MovieService {
     Movie movieWithGenres(int id);
 
     void updateMovie(int movie_id, int country_id);
+
+    List<Movie> movieWithCountry();
+
+    List<Movie> movieWithGenres();
 }

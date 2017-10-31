@@ -49,6 +49,7 @@ public class MovieController {
 
     @PostMapping("/movie")
     public String movie(@ModelAttribute Movie movie, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
+
         try {
             movieService.save(movie, genreIds, countryIds);
         } catch (Exception e) {

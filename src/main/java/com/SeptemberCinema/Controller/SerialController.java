@@ -79,9 +79,15 @@ public class SerialController {
     }
 
     @GetMapping("/updateSerial/{id}")
-    public String update(@PathVariable int id, Model model){
-        model.addAttribute("serial", serialService.serialWithCountry(id));
+    public String update(@PathVariable int id, @ModelAttribute Serial serial, Model model){
+        model.addAttribute("serialWithCountries", serialService.serialWithCountry(id));
         return "updateSerial";
+    }
+
+    @GetMapping("/updateSerial/{serial_id}/{countries_id}")
+    public String update(@PathVariable int serial_id, @PathVariable int countries_id){
+        serialService.update(serial_id, countries_id);
+        return"redirect:/serial";
     }
 
 

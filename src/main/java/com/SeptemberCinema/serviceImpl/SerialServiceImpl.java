@@ -74,6 +74,18 @@ public class SerialServiceImpl implements SerialService{
     }
 
     @Override
+    public void update(int serial_id, int country_id) {
+        Serial serial = serialDao.serialWithCountry(serial_id);
+        for(Country country : serial.getCountries()){
+            if (country.getId()==country_id) {
+                country.setMovies(null);
+            }
+            countryDao.save(country);
+        }
+        serialDao.save(serial);
+    }
+
+    @Override
     public Serial serialWithCountry(int id) {
         return serialDao.serialWithCountry(id);
     }
