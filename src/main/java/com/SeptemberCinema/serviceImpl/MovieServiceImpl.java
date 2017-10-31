@@ -25,7 +25,6 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private GenreDao genreDao;
 
-
     @Autowired
     private CountryDao countryDao;
 
@@ -39,6 +38,9 @@ public class MovieServiceImpl implements MovieService {
 
         validator.validate(movie);
         movieDao.saveAndFlush(movie);
+
+
+
         for(Integer id : genreIds){
             Genre genre = genreDao.genreWithMovies(id);
             genre.getMovies().add(movie);
@@ -50,6 +52,7 @@ public class MovieServiceImpl implements MovieService {
             country.getMovies().add(movie);
             countryDao.save(country);
         }
+
         movieDao.save(movie);
     }
 
@@ -95,6 +98,16 @@ public class MovieServiceImpl implements MovieService {
             countryDao.save(country);
         }
         movieDao.save(movie);
+    }
+
+    @Override
+    public List<Movie> movieWithCountry() {
+        return movieDao.movieWithCountry();
+    }
+
+    @Override
+    public List<Movie> movieWithGenres() {
+        return movieDao.movieWithGenres();
     }
 
 
