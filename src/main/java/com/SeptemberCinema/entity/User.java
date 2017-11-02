@@ -22,6 +22,9 @@ public class User implements UserDetails{
     private String password;
     private String email;
 
+    private boolean enable;
+    private String uuid;
+
     @Enumerated
     private Role role;
 
@@ -120,6 +123,22 @@ public class User implements UserDetails{
         this.role = role;
     }
 
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -149,7 +168,7 @@ public class User implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enable;
     }
 
 
