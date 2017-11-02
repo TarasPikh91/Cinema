@@ -1,77 +1,23 @@
-.nav-pills > li> a{
-    color: white;
-}
+.navbar-brand { position: relative; z-index: 2; }
 
-.nav-pills>li>a:hover{
-    color: green;
-}
+.navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; }
 
+.navbar .navbar-collapse { position: relative; }
+.navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
 
-.input-group-addon {
-    color: #fff;
-    background-color: #337ab7;
-}
+.navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
+.navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
+.navbar.navbar-inverse .nav-collapse { background-color: #222; }
+.navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
+.nav-collapse>li { float: right; }
 
+.btn.btn-circle { border-radius: 50px; }
+.btn.btn-outline { background-color: transparent; }
 
-.form-control, .input-group-addon {
-    border-radius: 0px;
-}
-label{
-    text-align: left !important;
-}
+@media screen and (max-width: 767px) {
+    .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; }
 
-#loginbox{
-    margin-top: 50px;
-}
-
-.forgotPassword{
-    float:right;
-    font-size: 80%;
-    position: relative;
-    top:-10px
-}
-
-.panel-body{
-    padding-top:30px;
-}
-
-#login-alert{
-    display:none;
-}
-
-.input-group{
-    margin-bottom: 25px;
-}
-
-.form-group{
-    margin-top: 10px;
-}
-
-.dontAcc{
-    border-top: 1px solid#888;
-    padding-top:15px;
-    font-size:85%;
-}
-
-#signupbox{
-    display:none;
-    margin-top:50px;
-}
-
-.signIn{
-    float:right;
-    font-size: 85%;
-    position: relative;
-    top:-10px;
-}
-
-#signupalert{
-    display: none;
-}
-
-.logInText{
-    border-top:
-            1px solid#888;
-    padding-top:15px;
-    font-size:85%;
+    .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+    .navbar .nav-collapse .navbar-form { margin: 0; }
+    .nav-collapse>li { float: none; }
 }

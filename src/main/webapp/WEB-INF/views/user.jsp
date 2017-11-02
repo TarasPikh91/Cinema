@@ -29,6 +29,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Age</th>
+            <th>Uuid</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -41,6 +42,7 @@
             <td>${user.lastName}</td>
             <td>${user.email}</td>
             <td>${user.age}</td>
+            <td>${user.uuid}</td>
             <td><a href="/updateUser/${user.id}">Update</a></td>
             <td><a href="/deleteUser/${user.id}">Delete</a></td>
         </tr>
