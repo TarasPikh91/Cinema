@@ -1,9 +1,7 @@
 package com.SeptemberCinema.Controller;
 
 import com.SeptemberCinema.entity.User;
-import com.SeptemberCinema.service.MailSenderService;
-import com.SeptemberCinema.service.MovieService;
-import com.SeptemberCinema.service.UserService;
+import com.SeptemberCinema.service.*;
 import com.SeptemberCinema.validation.Validator;
 import com.SeptemberCinema.validation.userLoginValidation.UserLogInValidationMessages;
 import com.SeptemberCinema.validation.userValidator.UserValidatorMessages;
@@ -25,6 +23,15 @@ public class HomeController {
     private MovieService movieService;
 
     @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private GenreService genreService;
+
+    @Autowired
+    private ReleaseYearService releaseYearService;
+
+    @Autowired
     @Qualifier("userLoginValidation")
     private Validator validator;
 
@@ -35,6 +42,9 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("users", userService.findAll());
         model.addAttribute("movies", movieService.findAll());
+        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("releaseYears", releaseYearService.findAll());
         model.addAttribute("user", new User());
         return "home";
     }
@@ -80,6 +90,9 @@ public class HomeController {
     public String logIn(Model model){
         model.addAttribute("users", userService.findAll());
         model.addAttribute("movies", movieService.findAll());
+        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("releaseYears", releaseYearService.findAll());
         model.addAttribute("user", new User());
         return "home";
     }
