@@ -10,7 +10,6 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
   <link rel="stylesheet" href="../../css/home.css">
   <script src="../../js/home.js"></script>
 
@@ -100,7 +99,7 @@
                   <a href="#" class="active" id="signup-form-link">Sign Up</a>
                 </div>
               </div>
-      </div>
+            </div>
             <hr>
             <div class="panel-body">
               <div class="row">
@@ -126,7 +125,7 @@
                   </form:form>
                   <form:form id="signup-form" action="/SignUp" modelAttribute="user" method="post" style="display: none;">
                     <div class="form-group">
-                      <form:input type="text" path="firstName" class="form-control input-sm" placeholder="first name"/>
+                      <form:input type="text" path="firstName" value="${user.firstName}" class="form-control input-sm" placeholder="first name"/>
                     </div>
                     <div class="form-group">
                         <form:input path="lastName" type="text" class="form-control input-sm" placeholder="last name"/>
@@ -151,12 +150,9 @@
                 </div>
               </div>
             </div>
-      </div>
-    </div>
-      </div>
-    </div>
-      </div>
-
-
+           </div>
+           </div>
+        </div>
+     </div>
 </body>
 </html>

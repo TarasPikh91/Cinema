@@ -99,7 +99,6 @@ public class HomeController {
 
     @PostMapping("/login")
     public String logInAfter(){
-
         return "home";
     }
 
