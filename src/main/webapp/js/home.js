@@ -1,3 +1,5 @@
+
+
 $(function () {
    $('#login-form-link').click(function (e) {
       $('#login-form').delay(100).fadeIn(100);
@@ -15,8 +17,11 @@ $(function () {
     });
 });
 
+
+
 $(function () {
-    $('#logIn').click(function () {
-       $('#registration-form').show();
+    $('#logIn').click(function (e) {
+        e.preventDefault();
+       $('#registration-form').toggle();
     });
 });
