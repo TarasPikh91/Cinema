@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String user(@ModelAttribute User user){
+    public String user(){
 
         return "user";
     }

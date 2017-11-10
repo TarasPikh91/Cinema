@@ -7,6 +7,8 @@ import com.SeptemberCinema.service.GenreService;
 import com.SeptemberCinema.validation.genreValidator.GenreValidationMessages;
 import com.SeptemberCinema.validation.userValidator.UserValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -25,8 +27,8 @@ public class GenreController {
 
 
     @GetMapping("/genre")
-    public String genre(Model model){
-        model.addAttribute("genres", genreService.findAll());
+    public String genre(Model model, @PageableDefault Pageable pageable){
+        model.addAttribute("genres", genreService.findAllPagase(pageable));
         model.addAttribute("genre", new Genre());
         return "genre";
     }
