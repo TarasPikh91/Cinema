@@ -6,6 +6,8 @@ import com.SeptemberCinema.service.GenreService;
 import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -47,5 +49,10 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void update(Genre genre) {
         genreDao.save(genre);
+    }
+
+    @Override
+    public Page<Genre> findAllPagase(Pageable pageable) {
+        return genreDao.findAll(pageable);
     }
 }

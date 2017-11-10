@@ -25,3 +25,4 @@ $(function () {
        $('#registration-form').toggle();
     });
 });
+
