@@ -19,15 +19,42 @@
 <body>
 <jsp:include page="adminPanel.jsp"/>
 <div class="container">
-    <form:form method="post" modelAttribute="serialWithCountries">
-        <fieldset class="form-group">
-            <label>Update Serial</label>
-            <input class="form-control" type="text" value="${serialWithCountries.title}" name="title"/>
-            <c:forEach items="${serialWithCountries.countries}" var="country">
-                ${country.countryName}<a href="/updateSerial/${serialWithCountries.id}/${country.id}">delete</a><br>
-            </c:forEach>
-        </fieldset>
-        <button type="submit" class="btn btn-default">Update</button>
+    <form:form modelAttribute="serialToUpdate" method="post">
+        <faildset class="form-group">
+            <label>Title</label>
+            <span style="text-align: center; color: red">${titleException}</span>
+            <form:input path="title" class="form-control"/>
+
+            <label>Description</label>
+            <span style="text-align: center; color: red">${descriptionException}</span>
+            <form:input path="description" class="form-control"/>
+
+            <label>Duration</label>
+            <span style="text-align: center; color: red">${durationException}</span>
+            <form:input path="duration" class="form-control"/>
+
+            <label>Release Year</label>
+            <form:select class="form-control show-menu-picker" path="releaseYear">
+                <option>Release Year</option>
+                <c:forEach var="releaseYear" items="${releaseYears}">
+                    <option value="${releaseYear.id}">${releaseYear.releaseYear}</option>
+                </c:forEach>
+            </form:select>
+
+            <label>Genre</label>
+            <select multiple class="form-control" name="genreIds" type="text" required>
+                <c:forEach var="genre" items="${genres}">
+                    <option value="${genre.id}">${genre.genreName}</option>
+                </c:forEach>
+            </select><br>
+            <label>Countries</label>
+            <select multiple class="form-control" name="countryIds" type="text" required>
+                <c:forEach var="country" items="${countries}">
+                    <option value="${country.id}">${country.countryName}</option>
+                </c:forEach>
+            </select><br>
+        </faildset>
+        <button type="submit" class="btn btn-default">Save Serial</button>
     </form:form>
 </div>
 </body>

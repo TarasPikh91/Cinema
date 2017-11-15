@@ -8,6 +8,7 @@ import com.SeptemberCinema.service.GenreService;
 import com.SeptemberCinema.service.MovieService;
 import com.SeptemberCinema.service.ReleaseYearService;
 import com.SeptemberCinema.validation.movieValidator.MovieValidatorMessages;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,13 +81,17 @@ public class MovieController {
 
     @GetMapping("/updateMovie/{id}")
     public String update(@PathVariable int id, @ModelAttribute Movie movie, Model model){
-        model.addAttribute("currentMovieWithCountries", movieService.movieWithCountries(id));
+        model.addAttribute("movieToUpdate", movieService.findOne(id));
+        model.addAttribute("releaseYears", releaseYearService.findAll());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("countries", countryService.findAll());
         return "updateMovie";
     }
 
-    @GetMapping("/updateMovie/{movie_id}/{countries_id}")
-    public String update(@PathVariable int movie_id, @PathVariable int countries_id){
-        movieService.updateMovie(movie_id, countries_id);
+    @PostMapping("/updateMovie/{id}")
+    public String update(Model model, @ModelAttribute Movie movie, @PathVariable int id, @RequestParam List<Integer> countryIds, @RequestParam List<Integer> genreIds){
+        model.addAttribute("movieToUpdate", movieService.findOne(id));
+        movieService.updateMovie(movie, countryIds, genreIds);
         return"redirect:/movie";
     }
 }

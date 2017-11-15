@@ -20,16 +20,46 @@
 <body>
 <jsp:include page="adminPanel.jsp"/>
 <div class="container" style="margin-top: 50px">
-<form:form method="post" modelAttribute="currentMovieWithCountries">
-    <fieldset class="form-group">
-        <label>Update Movie</label>
-    <input class="form-control" type="text" value="${currentMovieWithCountries.title}" name="title"/>
-    <c:forEach items="${currentMovieWithCountries.countries}" var="country">
-        ${country.countryName}<a href="/updateMovie/${currentMovieWithCountries.id}/${country.id}">delete</a><br>
-    </c:forEach>
-    </fieldset>
-    <button type="submit" class="btn btn-default">Update</button>
-</form:form>
+    <form:form modelAttribute="movieToUpdate" method="post">
+        <h3 style="text-align: center">Movie</h3>
+        <fieldset class="form-group">
+            <label for="Title">Title</label>
+            <span style="text-align: center; color: red">${titleException}</span><br>
+            <form:input path="title" type="text" class="form-control"/><br>
+            <label>Duration</label>
+            <span style="text-align: center; color: red">${durationException}</span><br>
+            <form:input path="duration" type="text" class="form-control"/><br>
+
+            <label>Description</label>
+            <span style="text-align: center; color: red">${descriptionException}</span>
+            <form:input path="description" type="text" class="form-control"/><br>
+
+            <div class="dropdown">
+                <label>Release Year</label>
+                <form:select path="releaseYear" class="selectpicker form-control show-menu-picker required" arial-required="true">
+                    <option>release Year</option>
+                    <c:forEach var="releaseYear" items="${releaseYears}">
+                        <option value="${releaseYear.id}">${releaseYear.releaseYear}</option>
+                    </c:forEach>
+                </form:select>
+            </div><br>
+
+            <label>Genre</label>
+            <select multiple class="form-control" name="genreIds" type="text" required>
+                <c:forEach var="genre" items="${genres}">
+                    <option value="${genre.id}">${genre.genreName}</option>
+                </c:forEach>
+            </select><br>
+
+            <label>Countries</label>
+            <select multiple class="form-control" name="countryIds" type="text" required>
+                <c:forEach var="country" items="${countries}">
+                    <option value="${country.id}">${country.countryName}</option>
+                </c:forEach>
+            </select>
+        </fieldset>
+        <button class="btn btn-default" type="submit">Save Movie</button>
+    </form:form>
 </div>
 </body>
 </html>
