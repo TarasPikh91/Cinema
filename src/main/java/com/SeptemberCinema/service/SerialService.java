@@ -17,7 +17,7 @@ public interface SerialService {
 
     void update(Serial serial);
 
-    void  update(int serial_id, int country_id);
+    void  update(Serial serial,List<Integer> genreIds, List<Integer> countryIds );
 
     Serial serialWithCountry(int id);
 

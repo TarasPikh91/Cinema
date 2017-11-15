@@ -35,7 +35,7 @@
 
         <div class="dropdown">
         <label>Release Year</label>
-        <form:select path="releaseYear" class="selectpicker form-control show-menu-picker">
+        <form:select path="releaseYear" class="selectpicker form-control show-menu-picker required" arial-required="true">
                 <option>release Year</option>
             <c:forEach var="releaseYear" items="${releaseYears}">
                 <option value="${releaseYear.id}">${releaseYear.releaseYear}</option>

@@ -80,13 +80,17 @@ public class SerialController {
 
     @GetMapping("/updateSerial/{id}")
     public String update(@PathVariable int id, @ModelAttribute Serial serial, Model model){
-        model.addAttribute("serialWithCountries", serialService.serialWithCountry(id));
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute("releaseYears", releaseYearService.findAll());
+        model.addAttribute("serialToUpdate", serialService.findOne(id));
         return "updateSerial";
     }
 
-    @GetMapping("/updateSerial/{serial_id}/{countries_id}")
-    public String update(@PathVariable int serial_id, @PathVariable int countries_id){
-        serialService.update(serial_id, countries_id);
+    @PostMapping("/updateSerial/{id}")
+    public String update(@PathVariable int id, @ModelAttribute Serial serial, @RequestParam List<Integer> countryIds, @RequestParam List<Integer> genreIds, Model model){
+        model.addAttribute("serialToUpdate", serialService.findOne(id));
+        serialService.update(serial, countryIds, genreIds);
         return"redirect:/serial";
     }
 

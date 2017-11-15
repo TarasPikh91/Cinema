@@ -26,3 +26,28 @@ $(function () {
     });
 });
 
+// $(function () {
+//     $('#requestMovie').click(function () {
+//         $('#requestMovieForm').toggle();
+//         var requestedMovie = {
+//             name : $('#movieName').val()
+//         };
+//
+//         $('#movieName').val(' ');
+//
+//         $.ajax({
+//             url: '/requestMovie',
+//             method: 'post',
+//             dataType: 'json',
+//             contentType: 'application/json; charset=UTF-8',
+//             data : '',
+//             success : function(res){
+//                 parseResultFromDb(res)
+//             },
+//             error: function(err){
+//                 conlsole.log(err);
+//             }
+//         });
+//
+//     });
+// });

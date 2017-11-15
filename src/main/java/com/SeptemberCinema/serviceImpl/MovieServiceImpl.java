@@ -87,14 +87,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void updateMovie(int movie_id, int country_id) {
+    public void updateMovie(Movie movie, List<Integer> genreIds, List<Integer> countryIds) {
 
-        Movie movie = movieDao.movieWithCountries(movie_id);
+        for (Integer id : genreIds){
+            Genre genre = genreDao.genreWithMovies(id);
+            genre.getMovies().add(movie);
+            genreDao.save(genre);
+        }
 
-        for (Country country : movie.getCountries()){
-            if (country.getId() == country_id){
-                country.setMovies(null);
-            }
+        for(Integer id : countryIds){
+            Country country = countryDao.countryWithMovie(id);
+            country.getMovies().add(movie);
             countryDao.save(country);
         }
         movieDao.save(movie);

@@ -23,7 +23,7 @@ public interface MovieService {
 
     Movie movieWithGenres(int id);
 
-    void updateMovie(int movie_id, int country_id);
+    void updateMovie(Movie movie,  List<Integer> genreIds, List<Integer> countryIds);
 
     List<Movie> movieWithCountry();
 

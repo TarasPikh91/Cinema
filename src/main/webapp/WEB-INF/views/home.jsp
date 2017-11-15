@@ -40,6 +40,7 @@
               <li><a href="/genre"><security:message code="lable.genre"/></a></li>
               <li><a href="/releaseYear"><security:message code="lable.releaseYear"/></a></li>
               <li><a href="/user"><security:message code="lable.user"/></a></li>
+              <li><a href="/requestMovie"><security:message code="lable.request"/></a></li>
             </sec:authorize>
             <%--admin navbar--%>
 
@@ -71,7 +72,7 @@
                 </c:forEach>
               </ul>
             </li>
-            <li>
+            <li id="requestMovie">
               <a href="#"><security:message code="lable.request"/></a>
             </li>
               </sec:authorize>
@@ -135,7 +136,7 @@
         </div>
         <!-- /.navbar-collapse -->
       </nav>
-
+<%--Registaration and logIn form--%>
    <span style="text-align: center; color: red">${logInException}</span><br>
    <span style="text-align: center; color: red">${SignUpException}</span><br>
 
@@ -214,6 +215,25 @@
            </div>
         </div>
      </div>
+      <%--End of registration and logIn form--%>
+
+
+      <%--request Movie form--%>
+        <div class="container" id="requestMovieForm" style="display: none">
+          <div class="form-group">
+            <label class="control-label">Movie name</label>
+            <input type="text" name="movieName" id="movieName" placeholder="Movie name">
+            <button>Request Movie</button>
+          </div>
+        </div>
+      <%--End of request movie form--%>
+
+      <%--Main page pagination--%>
+
+      <%--End main page pagination--%>
+
+
+
 
       <%--<script>--%>
           <%--// Only change code below this line.--%>
