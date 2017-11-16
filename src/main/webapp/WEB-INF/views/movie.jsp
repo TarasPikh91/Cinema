@@ -19,7 +19,7 @@
 <body>
 <jsp:include page="adminPanel.jsp"/>
 <div class="container" style="margin-top: 20px">
-    <form:form modelAttribute="movie" method="post">
+    <form:form modelAttribute="movie" method="post" action="/movie?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
         <h3 style="text-align: center">Movie</h3>
     <fieldset class="form-group">
         <label for="Title">Title</label>
@@ -57,6 +57,10 @@
             </c:forEach>
         </select>
     </fieldset>
+        <fieldset class="form-group">
+            <label>Image</label>
+            <input class="form-control" type="file" name="image">
+        </fieldset>
         <button class="btn btn-default" type="submit">Save Movie</button>
 </form:form>
 </div>
@@ -70,6 +74,7 @@
                 <th>Duration</th>
                 <th>Description</th>
                 <th>Release Year</th>
+                <th>Image</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -82,6 +87,7 @@
                     <td>${movie.duration}</td>
                     <td>${movie.description}</td>
                     <td>${movie.releaseYear.releaseYear}</td>
+                    <td><img src="${movie.pathImage}" alt="" width="50px" height="50px"></td>
                     <td><a href="/updateMovie/${movie.id}">Update</a></td>
                     <td><a href="/deleteMovie/${movie.id}">Delete</a></td>
                 </tr>

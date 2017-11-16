@@ -15,6 +15,8 @@ public class Movie {
     private String duration;
     private String description;
 
+    private String pathImage;
+
     @ManyToOne
     private ReleaseYear releaseYear;
 
@@ -104,5 +106,13 @@ public class Movie {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 }

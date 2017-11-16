@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -49,10 +50,10 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
-    public String movie(@ModelAttribute Movie movie, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
+    public String movie(@ModelAttribute Movie movie, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model, @RequestParam MultipartFile image){
 
         try {
-            movieService.save(movie, genreIds, countryIds);
+            movieService.save(movie, genreIds, countryIds, image);
         } catch (Exception e) {
             if (e.getMessage().equals(MovieValidatorMessages.EMPTY_TITLE_FIELD)||
                     e.getMessage().equals(MovieValidatorMessages.THIS_MOVIE_ALREADY_EXISTS)){
@@ -80,8 +81,9 @@ public class MovieController {
     }
 
     @GetMapping("/updateMovie/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Movie movie, Model model){
-        model.addAttribute("movieToUpdate", movieService.findOne(id));
+    public String update(@PathVariable int id, Model model){
+        Movie movie = movieService.findOne(id);
+        model.addAttribute("movieToUpdate", movie);
         model.addAttribute("releaseYears", releaseYearService.findAll());
         model.addAttribute("genres", genreService.findAll());
         model.addAttribute("countries", countryService.findAll());
@@ -89,9 +91,10 @@ public class MovieController {
     }
 
     @PostMapping("/updateMovie/{id}")
-    public String update(Model model, @ModelAttribute Movie movie, @PathVariable int id, @RequestParam List<Integer> countryIds, @RequestParam List<Integer> genreIds){
+    public String update(Model model, @ModelAttribute Movie movie, @PathVariable int id, @RequestParam List<Integer> countryIds,
+                         @RequestParam List<Integer> genreIds, @RequestParam MultipartFile image){
         model.addAttribute("movieToUpdate", movieService.findOne(id));
-        movieService.updateMovie(movie, countryIds, genreIds);
+        movieService.updateMovie(movie, countryIds, genreIds, image);
         return"redirect:/movie";
     }
 }

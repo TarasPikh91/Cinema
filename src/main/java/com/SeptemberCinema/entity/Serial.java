@@ -18,6 +18,8 @@ public class Serial {
     private String duration;
     private String description;
 
+    private String pathImage;
+
     @ManyToOne
     private User user;
 
@@ -108,5 +110,13 @@ public class Serial {
 
     public void setCountries(List<Country> countries) {
         this.countries = countries;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 }

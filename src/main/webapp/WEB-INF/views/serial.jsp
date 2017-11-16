@@ -21,7 +21,7 @@
 <jsp:include page="adminPanel.jsp"/>
 <div class="container" style="margin-top: 20px">
     <h3 style="text-align: center">Serial</h3>
-<form:form modelAttribute="serial" method="post">
+<form:form modelAttribute="serial" method="post" action="/serial?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
     <faildset class="form-group">
         <label>Title</label>
     <span style="text-align: center; color: red">${titleException}</span>
@@ -56,6 +56,10 @@
             </c:forEach>
         </select><br>
     </faildset>
+    <fieldset class="form-group">
+        <label>Image</label>
+        <input class="form-control" type="file" name="image">
+    </fieldset>
     <button type="submit" class="btn btn-default">Save Serial</button>
 </form:form>
 </div>
@@ -68,6 +72,7 @@
                 <th>Duration</th>
                 <th>Description</th>
                 <th>Release Year</th>
+                <th>Image</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -80,6 +85,7 @@
                 <td>${serial.duration}</td>
                 <td>${serial.description}</td>
                 <td>${serial.releaseYear.releaseYear}</td>
+                <td><img src="${serial.pathImage}" alt="" width="50px" height="50px"></td>
                 <td><a href="/updateSerial/${serial.id}">Update</a></td>
                 <td><a href="/deleteSerial/${serial.id}">Delete</a></td>
             </tr>

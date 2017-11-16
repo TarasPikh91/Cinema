@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class SerialController {
     }
 
     @PostMapping("/serial")
-    public String serial(@ModelAttribute Serial serial, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
+    public String serial(@ModelAttribute Serial serial, @RequestParam MultipartFile image, @RequestParam List<Integer> genreIds, @RequestParam List<Integer> countryIds, Model model){
         try {
-            serialService.save(serial, genreIds, countryIds);
+            serialService.save(serial, genreIds, countryIds, image);
         } catch (Exception e) {
             if (e.getMessage().equals(SerialValidationMessages.EMPTY_TITLE_FIELD)||
                     e.getMessage().equals(SerialValidationMessages.THIS_SERIAL_ALREADY_EXISTS)){
@@ -72,25 +73,26 @@ public class SerialController {
         return "redirect:/serial";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/deleteSerial/{id}")
     public String delete(@PathVariable int id){
                 serialService.delete(id);
                 return "redirect:/serial";
     }
 
     @GetMapping("/updateSerial/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Serial serial, Model model){
+    public String update(@PathVariable int id, Model model){
+        Serial serial = serialService.findOne(id);
         model.addAttribute("genres", genreService.findAll());
         model.addAttribute("countries", countryService.findAll());
         model.addAttribute("releaseYears", releaseYearService.findAll());
-        model.addAttribute("serialToUpdate", serialService.findOne(id));
+        model.addAttribute("serialToUpdate", serial);
         return "updateSerial";
     }
 
     @PostMapping("/updateSerial/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Serial serial, @RequestParam List<Integer> countryIds, @RequestParam List<Integer> genreIds, Model model){
+    public String update(@PathVariable int id, @ModelAttribute Serial serial, @RequestParam List<Integer> countryIds, @RequestParam MultipartFile image, @RequestParam List<Integer> genreIds, Model model){
         model.addAttribute("serialToUpdate", serialService.findOne(id));
-        serialService.update(serial, countryIds, genreIds);
+        serialService.update(serial, countryIds, genreIds, image);
         return"redirect:/serial";
     }
 

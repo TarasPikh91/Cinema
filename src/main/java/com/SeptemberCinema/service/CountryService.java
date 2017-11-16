@@ -1,12 +1,13 @@
 package com.SeptemberCinema.service;
 
 import com.SeptemberCinema.entity.Country;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface CountryService {
 
-    void save(Country country) throws Exception;
+    void save(Country country, MultipartFile image) throws Exception;
 
     List<Country> findAll();
 
@@ -14,5 +15,5 @@ public interface CountryService {
 
     void delete(int id);
 
-    void update(Country country);
+    void update(Country country, MultipartFile image);
 }

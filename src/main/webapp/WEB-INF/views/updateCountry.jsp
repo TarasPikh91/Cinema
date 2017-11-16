@@ -18,12 +18,16 @@
 <body>
 <jsp:include page="adminPanel.jsp"/>
 <div class="container" style="margin-top: 50px">
-<form:form modelAttribute="currentCountry" method="post">
+<form:form modelAttribute="currentCountry" method="post" action="/updateCountry/${currentCountry.id}?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
     <div class="">
         <fieldset class="form-group">
             <label for="countryName">Update Country</label>
             <%--<span style="text-align: center; color: red"></span>--%>
             <form:input path="countryName" class="form-control" type="text" />
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Update Image</label>
+            <input name="image" type="file" class="form-control">
         </fieldset>
     </div>
         <button type="submit" class="btn btn-default">Update</button>

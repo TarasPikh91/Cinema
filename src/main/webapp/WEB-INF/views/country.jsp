@@ -20,13 +20,17 @@
 <body>
 <jsp:include page="adminPanel.jsp"/>
 <div class="container" style="margin-top: 50px">
-    <form:form modelAttribute="country" method="post">
+    <form:form modelAttribute="country" method="post" enctype="multipart/form-data" action="/country?${_csrf.parameterName}=${_csrf.token}">
         <div class="">
         <faildset class="form-group">
                 <label for="countryName">Country name</label>
                 <span style="text-align: center; color: red">${countryNameException}</span>
                 <form:input path="countryName" class="form-control"/><br>
         </faildset>
+            <faildset class="form-group">
+                <label>Image</label>
+                <input name="image" type="file" class="form-control" >
+            </faildset>
         </div>
         <button type="submit" class="btn btn-default">Save</button>
     </form:form>
@@ -38,6 +42,7 @@
         <tr>
             <th>Id</th>
             <th>Country</th>
+            <th>Image</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -47,6 +52,7 @@
         <tr>
             <td>${country.id}</td>
             <td>${country.countryName}</td>
+            <td><img src="${country.pathImage}" alt="" width="50px" height="50px"></td>
             <td><a href="/updateCountry/${country.id}">Update</a></td>
             <td><a href="/deleteCountry/${country.id}">Delete</a></td>
         </tr>
