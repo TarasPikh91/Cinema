@@ -1,15 +1,13 @@
 package com.SeptemberCinema.service;
 
-import com.SeptemberCinema.entity.Country;
-import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Movie;
-import org.springframework.data.repository.query.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface MovieService {
 
-    void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds) throws Exception;
+    void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds, MultipartFile image) throws Exception;
 
     List<Movie> findAll();
 
@@ -23,7 +21,7 @@ public interface MovieService {
 
     Movie movieWithGenres(int id);
 
-    void updateMovie(Movie movie,  List<Integer> genreIds, List<Integer> countryIds);
+    void updateMovie(Movie movie, List<Integer> genreIds, List<Integer> countryIds, MultipartFile image);
 
     List<Movie> movieWithCountry();
 

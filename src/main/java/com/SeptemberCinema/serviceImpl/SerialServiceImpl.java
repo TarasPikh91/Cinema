@@ -11,7 +11,10 @@ import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -31,10 +34,22 @@ public class SerialServiceImpl implements SerialService{
     private Validator validator;
 
     @Override
-    public void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds) throws Exception {
+    public void save(Serial serial, List<Integer> genreIds, List<Integer> countryIds, MultipartFile image) throws Exception {
 
         validator.validate(serial);
         serialDao.saveAndFlush(serial);
+
+        String path = System.getProperty("catalina.home")+"/resources/"+serial.getTitle()+"/"+image.getOriginalFilename();
+
+        serial.setPathImage("resources/"+serial.getTitle()+"/"+image.getOriginalFilename());
+        File file = new File(path);
+        try{
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error file image");
+        }
+
 
         for (Integer id : genreIds){
             Genre genre = genreDao.genreWithSerials(id);
@@ -74,10 +89,24 @@ public class SerialServiceImpl implements SerialService{
     }
 
     @Override
-    public void update(Serial serial, List<Integer> genreIds, List<Integer> countryIds) {
+    public void update(Serial serial, List<Integer> genreIds, List<Integer> countryIds,  MultipartFile image) {
         serialDao.saveAndFlush(serial);
+
+        String path = System.getProperty("catalina.home")+"/resources/"+serial.getTitle()+"/"+image.getOriginalFilename();
+
+        serial.setPathImage("resources/"+serial.getTitle()+"/"+image.getOriginalFilename());
+        File file = new File(path);
+        try{
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error file image");
+        }
+
+
         for(Integer id : genreIds){
             Genre genre = genreDao.genreWithSerials(id);
+            genre.getSerials().add(serial);
            genreDao.save(genre);
         }
 

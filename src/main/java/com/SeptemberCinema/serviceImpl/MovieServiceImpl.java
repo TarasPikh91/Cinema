@@ -3,18 +3,18 @@ package com.SeptemberCinema.serviceImpl;
 import com.SeptemberCinema.dao.CountryDao;
 import com.SeptemberCinema.dao.GenreDao;
 import com.SeptemberCinema.dao.MovieDao;
-import com.SeptemberCinema.dao.ReleaseYearDao;
 import com.SeptemberCinema.entity.Country;
 import com.SeptemberCinema.entity.Genre;
 import com.SeptemberCinema.entity.Movie;
-import com.SeptemberCinema.entity.ReleaseYear;
 import com.SeptemberCinema.service.MovieService;
 import com.SeptemberCinema.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -34,12 +34,23 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds) throws Exception {
+    public void save(Movie movie, List<Integer> genreIds, List<Integer> countryIds, MultipartFile image) throws Exception {
 
         validator.validate(movie);
         movieDao.saveAndFlush(movie);
 
+        String path = System.getProperty("catalina.home")+"/resources/"+movie.getTitle()+"/"+image.getOriginalFilename();
 
+        movie.setPathImage("resources/"+movie.getTitle()+"/"+image.getOriginalFilename());
+
+        File file = new File(path);
+
+        try {
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error with file");
+        }
 
         for(Integer id : genreIds){
             Genre genre = genreDao.genreWithMovies(id);
@@ -87,7 +98,21 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void updateMovie(Movie movie, List<Integer> genreIds, List<Integer> countryIds) {
+    public void updateMovie(Movie movie, List<Integer> genreIds, List<Integer> countryIds, MultipartFile image) {
+
+
+        String path = System.getProperty("catalina.home")+"/resources/"+movie.getTitle()+"/"+image.getOriginalFilename();
+
+        movie.setPathImage("resources/"+movie.getTitle()+"/"+image.getOriginalFilename());
+
+        File file = new File(path);
+
+        try {
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error with file");
+        }
 
         for (Integer id : genreIds){
             Genre genre = genreDao.genreWithMovies(id);

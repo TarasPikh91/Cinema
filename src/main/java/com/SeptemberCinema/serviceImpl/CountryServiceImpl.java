@@ -4,11 +4,13 @@ import com.SeptemberCinema.dao.CountryDao;
 import com.SeptemberCinema.entity.Country;
 import com.SeptemberCinema.service.CountryService;
 import com.SeptemberCinema.validation.Validator;
-import com.SeptemberCinema.validation.countryValidator.CountryValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -22,8 +24,22 @@ public class CountryServiceImpl implements CountryService {
     private Validator validator;
 
     @Override
-    public void save(Country country) throws Exception {
+    public void save(Country country, MultipartFile image) throws Exception {
         validator.validate(country);
+
+        countryDao.saveAndFlush(country);
+        String path = System.getProperty("catalina.home")+"/resources/"+
+                country.getCountryName()+"/"+image.getOriginalFilename();
+
+        country.setPathImage("resources/"+country.getCountryName()+"/"+image.getOriginalFilename());
+        File file = new File(path);
+
+        try {
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error with file");
+        }
         countryDao.save(country);
     }
 
@@ -43,7 +59,19 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public void update(Country country) {
+    public void update(Country country, MultipartFile image) {
+        countryDao.saveAndFlush(country);
+        String path = System.getProperty("catalina.home")+"/resources/"+country.getCountryName()+"/"+image.getOriginalFilename();
+        country.setPathImage("resources/"+country.getCountryName()+"/"+image.getOriginalFilename());
+        File file = new File(path);
+        try {
+            file.mkdirs();
+            image.transferTo(file);
+        }catch (IOException o){
+            System.out.println("error with file");
+        }
+
+
         countryDao.save(country);
     }
 }

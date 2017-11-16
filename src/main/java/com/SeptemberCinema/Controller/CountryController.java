@@ -6,10 +6,8 @@ import com.SeptemberCinema.validation.countryValidator.CountryValidatorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class CountryController {
@@ -27,9 +25,9 @@ public class CountryController {
 
 
     @PostMapping("/country")
-    public String save(@ModelAttribute Country country, Model model){
+    public String save(@ModelAttribute Country country, @RequestParam MultipartFile image, Model model){
         try {
-            countryService.save(country);
+            countryService.save(country, image);
         } catch (Exception e) {
             if (e.getMessage().equals(CountryValidatorMessages.EMPTY_COUNTRYNAME_FIELD)||
                     e.getMessage().equals(CountryValidatorMessages.COUNTRY_ALREADY_EXISTS)){
@@ -55,9 +53,9 @@ public class CountryController {
     }
 
     @PostMapping("updateCountry/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Country country, Model model){
+    public String update(@PathVariable int id, @ModelAttribute Country country, @RequestParam MultipartFile image, Model model){
         model.addAttribute("currentCountry", countryService.findOne(id));
-        countryService.update(country);
+        countryService.update(country, image);
         return "redirect:/country";
     }
 

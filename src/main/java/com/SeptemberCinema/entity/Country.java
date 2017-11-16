@@ -13,6 +13,7 @@ public class Country {
 
     private String countryName;
 
+    private String pathImage;
 
 
     @ManyToMany
@@ -61,5 +62,13 @@ public class Country {
 
     public void setSerials(List<Serial> serials) {
         this.serials = serials;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 }
